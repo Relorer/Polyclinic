@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:POLYCLINIC.Client"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
     Title="Polycinic"
     Width="950"
     Height="500"
@@ -18,7 +19,12 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+
+    <Window.DataContext>
+        <viewmodels:VMMainWindow />
+    </Window.DataContext>
+
     <Grid>
-        <Frame Source="Pages/patient.xaml" />
+        <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

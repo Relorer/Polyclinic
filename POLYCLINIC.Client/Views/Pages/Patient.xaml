@@ -185,7 +185,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Frame Source="choicedoctor.xaml" />
+                    <Frame Source="MakeAppointment/choicedoctor.xaml" />
                 </ScrollViewer>
             </TabItem>
         </TabControl>
