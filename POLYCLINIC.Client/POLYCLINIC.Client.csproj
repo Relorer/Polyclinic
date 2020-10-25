@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3FFF54E0-3CD8-4D02-BE08-4CF7AEA58ECE}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>POLYCLINIC.Client</RootNamespace>
     <AssemblyName>POLYCLINIC.Client</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -37,7 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>heart.ico</ApplicationIcon>
+    <ApplicationIcon>Content\heart.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
@@ -62,64 +65,63 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Views\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Utils\MainNavigation.cs" />
+    <Compile Include="Utils\Navigation.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="ViewModels\VMBase.cs" />
+    <Compile Include="ViewModels\VMMainWindow.cs" />
+    <Compile Include="ViewModels\VMAuthorization.cs" />
+    <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Authorization.xaml">
+    <Page Include="Views\Pages\Authorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ChoiceDoctor.xaml">
+    <Page Include="Views\Pages\MakeAppointment\ChoiceDoctor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ChoiceSpecialization.xaml">
+    <Page Include="Views\Pages\MakeAppointment\ChoiceSpecialization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ChoiceTime.xaml">
+    <Page Include="Views\Pages\MakeAppointment\ChoiceTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ChoiceUserType.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Patient.xaml">
+    <Page Include="Views\Pages\Patient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\Authorization.xaml.cs">
+    <Compile Include="Views\Pages\Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ChoiceDoctor.xaml.cs">
+    <Compile Include="Views\Pages\MakeAppointment\ChoiceDoctor.xaml.cs">
       <DependentUpon>ChoiceDoctor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ChoiceSpecialization.xaml.cs">
+    <Compile Include="Views\Pages\MakeAppointment\ChoiceSpecialization.xaml.cs">
       <DependentUpon>ChoiceSpecialization.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ChoiceTime.xaml.cs">
+    <Compile Include="Views\Pages\MakeAppointment\ChoiceTime.xaml.cs">
       <DependentUpon>ChoiceTime.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ChoiceUserType.xaml.cs">
-      <DependentUpon>ChoiceUserType.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Patient.xaml.cs">
+    <Compile Include="Views\Pages\Patient.xaml.cs">
       <DependentUpon>Patient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -149,7 +151,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="heart.ico" />
+    <Resource Include="Content\heart.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />
