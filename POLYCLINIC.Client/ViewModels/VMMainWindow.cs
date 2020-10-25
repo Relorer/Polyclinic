@@ -1,4 +1,4 @@
-﻿using POLYCLINIC.Client.Utils;
+﻿using POLYCLINIC.Client.Infrastructure;
 using System;
 using System.Windows.Controls;
 
@@ -18,6 +18,6 @@ namespace POLYCLINIC.Client.ViewModels
         {
             MainNavigation.Instance.CurrentPageChanged += (sender, e) => OnPropertyChanged(e.PropertyName);
         }
-        
+
     }
 }

@@ -1,9 +1,9 @@
 ﻿using POLYCLINIC.Client.Pages;
 using System;
 
-namespace POLYCLINIC.Client.Utils
+namespace POLYCLINIC.Client.Infrastructure
 {
-    class MainNavigation : Navigation
+    class MainNavigation : BaseNavigation
     {
         private static volatile MainNavigation instance;
         private static object syncRoot = new Object();

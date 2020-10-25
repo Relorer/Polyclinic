@@ -73,9 +73,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Utils\MainNavigation.cs" />
-    <Compile Include="Utils\Navigation.cs" />
-    <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Infrastructure\Structures\AuthorizationData.cs" />
+    <Compile Include="Infrastructure\Converters\AuthorizationDataMultiConverter.cs" />
+    <Compile Include="Infrastructure\Commands\AuthorizationCommand.cs" />
+    <Compile Include="Infrastructure\Navigation\MainNavigation.cs" />
+    <Compile Include="Infrastructure\Navigation\BaseNavigation.cs" />
+    <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\VMBase.cs" />
     <Compile Include="ViewModels\VMMainWindow.cs" />
     <Compile Include="ViewModels\VMAuthorization.cs" />

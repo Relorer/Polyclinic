@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 
-namespace POLYCLINIC.Client.Utils
+namespace POLYCLINIC.Client.Infrastructure
 {
-    public abstract class Navigation
+    public abstract class BaseNavigation
     {
         public event PropertyChangedEventHandler CurrentPageChanged;
 
