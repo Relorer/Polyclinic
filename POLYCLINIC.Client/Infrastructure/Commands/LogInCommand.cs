@@ -1,14 +1,10 @@
-﻿using POLYCLINIC.Client.Pages;
+﻿using POLYCLINIC.BLL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace POLYCLINIC.Client.Infrastructure.Commands
 {
-    class AuthorizationCommand : ICommand
+    class LogInCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -24,8 +20,11 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
 
         public void Execute(object parameter)
         {
-            //TODO Authorization logic
-            MainNavigation.Instance.Navigate(new Patient());
+            var data = parameter as AuthorizationData;
+            if (AuthorizationService.LogIn(data.Login, data.PasswordBox.Password))
+            {
+                MainNavigation.Instance.Navigate(AuthorizationService.GetCurrentUser());
+            }
         }
     }
 }

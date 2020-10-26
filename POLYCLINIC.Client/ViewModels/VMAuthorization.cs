@@ -4,8 +4,8 @@ namespace POLYCLINIC.Client.ViewModels
 {
     class VMAuthorization : VMBase
     {
-        private AuthorizationCommand logInCommand;
-        public AuthorizationCommand LogInCommand => logInCommand ??
-                  (logInCommand = new AuthorizationCommand());
+        private LogInCommand logInCommand;
+        public LogInCommand LogInCommand => logInCommand ??
+                  (logInCommand = new LogInCommand());
     }
 }

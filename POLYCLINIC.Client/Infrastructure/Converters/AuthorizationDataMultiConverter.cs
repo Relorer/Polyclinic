@@ -12,16 +12,14 @@ namespace POLYCLINIC.Client.Infrastructure
             return new AuthorizationData()
             {
                 Login = values[0].ToString(),
-                Password = (values[1] as PasswordBox).Password
+                PasswordBox = values[1] as PasswordBox
             };
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             AuthorizationData data = value as AuthorizationData;
-            PasswordBox box = new PasswordBox();
-            box.Password = data.Password;
-            return new object[] { data.Login, box };
+            return new object[] { data.Login, data.PasswordBox };
         }
     }
 }

@@ -5,12 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:POLYCLINIC.Client.Pages"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Style="{StaticResource Page}"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <viewmodels:VMPatient />
+    </Page.DataContext>
+    
     <Page.Resources>
         <Style
             x:Key="MaterialDesignNavigationRailTabItemWithTitle"
@@ -136,6 +140,7 @@
                             <Button
                                 Margin="24,8,24,16"
                                 HorizontalAlignment="Right"
+                                Command="{Binding LogOutCommand}"
                                 Style="{StaticResource MaterialDesignFlatButton}">
                                 Выйти
                             </Button>
