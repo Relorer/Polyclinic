@@ -23,6 +23,7 @@ namespace POLYCLINIC.Data
         public DbSet<Specialization> Specialization { get; set; }
         public DbSet<Street> Street { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Country> Country { get; set; }
         public DbSet<VoucherState> VoucherState { get; set; }
         public DbSet<VoucherForAppointment> VoucherForAppointment { get; set; }
 

@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:POLYCLINIC.Client.Pages"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Style="{StaticResource Page}"
@@ -14,7 +15,7 @@
     <Page.DataContext>
         <viewmodels:VMPatient />
     </Page.DataContext>
-    
+
     <Page.Resources>
         <Style
             x:Key="MaterialDesignNavigationRailTabItemWithTitle"
@@ -58,7 +59,7 @@
                         <StackPanel>
                             <Grid Margin="24,8,24,16" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="170" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -106,39 +107,39 @@
                                     Grid.Column="1"
                                     Margin="3"
                                     Opacity=".68"
-                                    Text="Мужской"
+                                    Text="{Binding Patient.Gender.Name}"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     Margin="3"
                                     Opacity=".68"
-                                    Text="15.04.1997"
+                                    Text="{Binding DateOfBirthWithoutTime}"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     Grid.Row="3"
                                     Grid.Column="1"
                                     Margin="3"
                                     Opacity=".68"
-                                    Text="г. Иваново, Ивановская обл."
+                                    Text="{Binding Patient.PlaceOfBirth}"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     Grid.Row="4"
                                     Grid.Column="1"
                                     Margin="3"
                                     Opacity=".68"
-                                    Text="Россия"
+                                    Text="{Binding Patient.Citizenship.Name}"
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     Grid.Row="5"
                                     Grid.Column="1"
                                     Margin="3"
                                     Opacity=".68"
-                                    Text="Паспорт гражданина РФ 5789 815462, выдан отделом УФМС России по Ивановской области в Шуйском районе, код подразделения 370-009, дата выдачи 06.06.2011"
+                                    Text="{Binding Patient.IdentityDocument}"
                                     TextWrapping="Wrap" />
                             </Grid>
                             <Button
-                                Margin="24,8,24,16"
+                                Margin="24,0,24,16"
                                 HorizontalAlignment="Right"
                                 Command="{Binding LogOutCommand}"
                                 Style="{StaticResource MaterialDesignFlatButton}">

@@ -20,6 +20,7 @@ namespace POLYCLINIC.BLL
         private LiveData<Specialization> specialization;
         private LiveData<Street> street;
         private LiveData<User> user;
+        private LiveData<Country> country;
         private LiveData<VoucherState> voucherState;
         private LiveData<VoucherForAppointment> voucherForAppointment;
 
@@ -34,6 +35,7 @@ namespace POLYCLINIC.BLL
         public LiveData<Specialization> Specialization => specialization ?? (specialization = new LiveData<Specialization>(ctx.Specialization));
         public LiveData<Street> Street => street ?? (street = new LiveData<Street>(ctx.Street));
         public LiveData<User> User => user ?? (user = new LiveData<User>(ctx.User));
+        public LiveData<Country> Country => country ?? (country = new LiveData<Country>(ctx.Country));
         public LiveData<VoucherState> VoucherState => voucherState ?? (voucherState = new LiveData<VoucherState>(ctx.VoucherState));
         public LiveData<VoucherForAppointment> VoucherForAppointment => voucherForAppointment ?? (voucherForAppointment = new LiveData<VoucherForAppointment>(ctx.VoucherForAppointment));
 

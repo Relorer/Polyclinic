@@ -8,10 +8,14 @@ namespace POLYCLINIC.Data
     {
         protected override void Seed(BaseContext context)
         {
+            var countryList = new List<Country>()
+            {
+                new Country(){Name = "Россия"},
+            };
             var genderList = new List<Gender>()
             {
-                new Gender(){Name = "Male"},
-                new Gender(){Name = "Female"}
+                new Gender(){Name = "Мужской"},
+                new Gender(){Name = "Женский"}
             };
             var dayList = new List<Weekday>()
             {
@@ -52,7 +56,10 @@ namespace POLYCLINIC.Data
                     Gender = genderList[0],
                     MedicalPolicyNumber = "Test patient 1",
                     Street = streetList[0],
-                    Vouchers = new List<VoucherForAppointment>()
+                    Vouchers = new List<VoucherForAppointment>(),
+                    Citizenship = countryList[0],
+                    IdentityDocument = "Паспорт гражданина РФ 5789 815462, выдан отделом УФМС России по Ивановской области в Шуйском районе, код подразделения 370-009, дата выдачи 06.06.2011",
+                    PlaceOfBirth = "Нашли под дверью"
                 },
                 new Patient()
                 {
@@ -64,7 +71,10 @@ namespace POLYCLINIC.Data
                     Gender = genderList[1],
                     MedicalPolicyNumber = "Test patient 2",
                     Street = streetList[1],
-                    Vouchers = new List<VoucherForAppointment>()
+                    Vouchers = new List<VoucherForAppointment>(),
+                    Citizenship = countryList[0],
+                    IdentityDocument = "Паспорт гражданина РФ 5789 815462, выдан отделом УФМС России по Ивановской области в Шуйском районе, код подразделения 370-009, дата выдачи 06.06.2011",
+                    PlaceOfBirth = "Нашли под дверью"
                 }
             };
             var specializationList = new List<Specialization>()

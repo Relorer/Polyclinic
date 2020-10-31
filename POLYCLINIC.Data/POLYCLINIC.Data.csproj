@@ -121,6 +121,7 @@
     <Compile Include="Context\BaseContext.cs" />
     <Compile Include="Entities\Admin.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Doctor.cs" />
     <Compile Include="Entities\Gender.cs" />
     <Compile Include="Entities\Patient.cs" />
