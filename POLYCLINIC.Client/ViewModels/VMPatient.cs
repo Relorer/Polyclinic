@@ -1,9 +1,6 @@
-﻿using POLYCLINIC.Client.Infrastructure.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.Client.Infrastructure.Commands;
+using POLYCLINIC.Client.Interfaces;
 
 namespace POLYCLINIC.Client.ViewModels
 {
@@ -11,6 +8,6 @@ namespace POLYCLINIC.Client.ViewModels
     {
         private LogOutCommand logOutCommand;
         public LogOutCommand LogOutCommand => logOutCommand ??
-                  (logOutCommand = new LogOutCommand());
+                  (logOutCommand = new LogOutCommand(IoC.Get<IMainNavigation>(), IoC.Get<IAuthorizationService>()));
     }
 }

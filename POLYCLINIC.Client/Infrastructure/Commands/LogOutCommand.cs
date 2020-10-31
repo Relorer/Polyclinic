@@ -1,4 +1,6 @@
 ﻿using POLYCLINIC.BLL;
+using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.Client.Interfaces;
 using POLYCLINIC.Client.Pages;
 using System;
 using System.Threading;
@@ -15,12 +17,21 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+        private readonly IMainNavigation navigation;
+        private readonly IAuthorizationService authorization;
+
+        public LogOutCommand(IMainNavigation navigation, IAuthorizationService authorization)
+        {
+            this.navigation = navigation;
+            this.authorization = authorization;
+        }
+
         public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter)
         {
-            AuthorizationService.LogOut();
-            MainNavigation.Instance.Navigate(new Authorization());
+            authorization.LogOut();
+            navigation.Navigate(new Authorization());
         }
 
     }

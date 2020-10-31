@@ -1,22 +1,21 @@
-﻿using POLYCLINIC.BLL.Properties;
-using POLYCLINIC.Data;
+﻿using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.BLL.Properties;
 using POLYCLINIC.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace POLYCLINIC.BLL
 {
-    public class AuthorizationService
+    public class AuthorizationService : IAuthorizationService
     {
-        static BaseContext context = new BaseContext();
-        public static bool LogIn(string login, string password)
+        private IBaseManager manager;
+
+        public AuthorizationService(IBaseManager manager)
         {
-            context.Users.Load();
-            var user = context.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
+            this.manager = manager;
+        }
+
+        public bool LogIn(string login, string password)
+        {
+            var user = manager.User.FirstOrDefault(u => u.Login == login && u.Password == password);
             if (user != null)
             {
                 Settings.Default["login"] = login;
@@ -26,19 +25,18 @@ namespace POLYCLINIC.BLL
             return user != null;
         }
 
-        public static void LogOut()
+        public void LogOut()
         {
             Settings.Default["login"] = string.Empty;
             Settings.Default["password"] = string.Empty;
             Settings.Default.Save();
         }
 
-        public static User GetCurrentUser()
+        public User GetCurrentUser()
         {
-            context.Users.Load();
             string login = Settings.Default["login"].ToString();
             string password = Settings.Default["password"].ToString();
-            return context.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
+            return manager.User.FirstOrDefault(u => u.Login == login && u.Password == password);
         }
     }
 }

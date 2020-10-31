@@ -1,4 +1,6 @@
 ﻿using POLYCLINIC.BLL;
+using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.Client.Interfaces;
 using System;
 using System.Windows.Input;
 
@@ -12,6 +14,15 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+        private readonly IMainNavigation navigation;
+        private readonly IAuthorizationService authorization;
+
+        public LogInCommand(IMainNavigation navigation, IAuthorizationService authorization)
+        {
+            this.navigation = navigation;
+            this.authorization = authorization;
+        }
+
         public bool CanExecute(object parameter)
         {
             var data = parameter as AuthorizationData;
@@ -21,9 +32,9 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
         public void Execute(object parameter)
         {
             var data = parameter as AuthorizationData;
-            if (AuthorizationService.LogIn(data.Login, data.PasswordBox.Password))
+            if (authorization.LogIn(data.Login, data.PasswordBox.Password))
             {
-                MainNavigation.Instance.Navigate(AuthorizationService.GetCurrentUser());
+                navigation.Navigate(authorization.GetCurrentUser());
             }
         }
     }

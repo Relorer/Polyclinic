@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
 namespace POLYCLINIC.Client.Infrastructure
@@ -22,11 +24,14 @@ namespace POLYCLINIC.Client.Infrastructure
             }
         }
 
-        protected Dictionary<string, Page> pages = new Dictionary<string, Page>();
+        private Dictionary<string, Page> pages = new Dictionary<string, Page>();
 
         public void Navigate(Page page)
         {
-            CurrentPage = pages[page.GetType().Name];
+            string name = page.GetType().Name;
+            pages[name] = pages.ContainsKey(name) ? pages[name] : page;
+            CurrentPage = pages[name];
         }
+
     }
 }

@@ -1,4 +1,7 @@
-﻿using POLYCLINIC.Client.Infrastructure;
+﻿using POLYCLINIC.BLL;
+using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.Client.Infrastructure;
+using POLYCLINIC.Client.Interfaces;
 using System;
 using System.Windows.Controls;
 
@@ -6,17 +9,18 @@ namespace POLYCLINIC.Client.ViewModels
 {
     class VMMainWindow : VMBase
     {
-        public Page CurrentPage
-        {
-            get
-            {
-                return MainNavigation.Instance.CurrentPage;
-            }
-        }
-        
+        private readonly IMainNavigation navigation;
+        private readonly IAuthorizationService authorization;
+
+        public Page CurrentPage => navigation.CurrentPage;
+
         public VMMainWindow()
         {
-            MainNavigation.Instance.CurrentPageChanged += (sender, e) => OnPropertyChanged(e.PropertyName);
+            navigation = IoC.Get<IMainNavigation>();
+            authorization = IoC.Get<IAuthorizationService>();
+
+            navigation.CurrentPageChanged += (sender, e) => OnPropertyChanged(e.PropertyName);
+            navigation.Navigate(authorization.GetCurrentUser());
         }
 
     }

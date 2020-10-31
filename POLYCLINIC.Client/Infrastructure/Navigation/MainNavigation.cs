@@ -1,55 +1,29 @@
-﻿using POLYCLINIC.BLL;
+﻿using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.Client.Interfaces;
 using POLYCLINIC.Client.Pages;
+using POLYCLINIC.Data.Entities;
 using System;
 
 namespace POLYCLINIC.Client.Infrastructure
 {
-    class MainNavigation : BaseNavigation
+    class MainNavigation : BaseNavigation, IMainNavigation
     {
-        private static volatile MainNavigation instance;
-        private static object syncRoot = new Object();
-
-        private MainNavigation()
-        {
-            pages.Add(typeof(Authorization).Name, new Authorization());
-            pages.Add(typeof(Patient).Name, new Patient());
-            Navigate(AuthorizationService.GetCurrentUser());
-        }
-
-        public static MainNavigation Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new MainNavigation();
-                    }
-                }
-                return instance;
-            }
-        }
-
-        public void Navigate(Data.Entities.User user)
+        public void Navigate(User user)
         {
             if (user == null)
             {
-                CurrentPage = pages[typeof(Authorization).Name];
+                Navigate(new Authorization());
             }
-            else if (user is Data.Entities.Doctor)
+            else if (user is Doctor)
             {
-                AuthorizationService.LogOut();
                 throw new Exception("Doctor is not supported");
             }
-            else if (user is Data.Entities.Patient)
+            else if (user is Patient)
             {
-                CurrentPage = pages[typeof(Patient).Name];
+                Navigate(new PatientPage());
             }
-            else if (user is Data.Entities.Admin)
+            else if (user is Admin)
             {
-                AuthorizationService.LogOut();
                 throw new Exception("Admin is not supported");
             }
         }
