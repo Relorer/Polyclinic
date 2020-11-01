@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Infrastructure\Commands\CancelVoucherCommand.cs" />
     <Compile Include="IoC\IoC.cs" />
     <Compile Include="Infrastructure\Commands\LogOutCommand.cs" />
     <Compile Include="Infrastructure\Structures\AuthorizationData.cs" />

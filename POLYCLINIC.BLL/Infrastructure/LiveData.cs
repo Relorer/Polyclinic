@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace POLYCLINIC.BLL.Infrastructure
             this.dbSet = dbSet;
         }
 
-        public IList List => dbSet.ToList();
+        public List<TEntity> List => dbSet.ToList();
 
         public virtual TEntity Add(TEntity entity)
         {

@@ -62,9 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\EntityModelConverterExtension.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
     <Compile Include="Interfaces\IBaseManager.cs" />
     <Compile Include="Infrastructure\LiveData.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\VoucherForAppointmentModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -82,9 +85,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\POLYCLINIC.Data\POLYCLINIC.Data.csproj">
       <Project>{3DFD6D32-B90F-4FD4-A69A-D40783EBFA3F}</Project>

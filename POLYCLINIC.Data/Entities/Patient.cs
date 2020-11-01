@@ -12,7 +12,7 @@ namespace POLYCLINIC.Data.Entities
         public virtual Gender Gender { get; set; }
         public virtual Street Street { get; set; }
         public virtual Country Citizenship { get; set; }
-        public ICollection<VoucherForAppointment> Vouchers { get; set; }
-        public ICollection<Visit> Visits { get; set; }
+        public virtual ICollection<VoucherForAppointment> Vouchers { get; set; }
+        public virtual ICollection<Visit> Visits { get; set; }
     }
 }

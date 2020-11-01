@@ -19,20 +19,20 @@ namespace POLYCLINIC.Data
             };
             var dayList = new List<Weekday>()
             {
-                new Weekday(){Name = "Monday"},
-                new Weekday(){Name = "Tuesday"},
-                new Weekday(){Name = "Wednesday"},
-                new Weekday(){Name = "Thursday"},
-                new Weekday(){Name = "Friday"},
-                new Weekday(){Name = "Saturday"},
-                new Weekday(){Name = "Sunday"}
+                new Weekday(){Name = "Понедельник"},
+                new Weekday(){Name = "Вторник"},
+                new Weekday(){Name = "Среда"},
+                new Weekday(){Name = "Четверг"},
+                new Weekday(){Name = "Пятница"},
+                new Weekday(){Name = "Суббота"},
+                new Weekday(){Name = "Воскресенье"}
             };
             var voucherStateList = new List<VoucherState>()
             {
-                new VoucherState(){Name = "open"},
-                new VoucherState(){Name = "completed"},
-                new VoucherState(){Name = "overdue"},
-                new VoucherState(){Name = "cancelled"}
+                new VoucherState(){Name = "Открыта"},
+                new VoucherState(){Name = "Завершена"},
+                new VoucherState(){Name = "Просрочена"},
+                new VoucherState(){Name = "Отменена"}
             };
             var streetList = new List<Street>()
             {
@@ -48,8 +48,8 @@ namespace POLYCLINIC.Data
             {
                 new Patient()
                 {
-                    FirstName = "Test patient 1",
-                    LastName = "Test patient 1",
+                    FirstName = "Шип",
+                    LastName = "Валерьевич",
                     Login = "Test patient 1",
                     Password = "Test patient 1",
                     DateOfBirth = DateTime.Now,
@@ -79,18 +79,19 @@ namespace POLYCLINIC.Data
             };
             var specializationList = new List<Specialization>()
             {
-                new Specialization(){Name = "Spec 1"},
+                new Specialization(){Name = "Педиатр"},
                 new Specialization(){Name = "Spec 2"}
             };
             var doctorList = new List<Doctor>()
             {
                 new Doctor()
                 {
-                    FirstName = "Test doctor 1",
-                    LastName = "Test doctor 1",
+                    FirstName = "Алексий",
+                    LastName = "Алексеевич",
                     Login = "Test doctor 1",
                     Password = "Test doctor 1",
                     Region = regionList[0],
+                    Specialization = specializationList[0],
                     ScheduleSlots = new List<ScheduleSlot>(),
                     Vouchers = new List<VoucherForAppointment>()
                 }
@@ -105,6 +106,23 @@ namespace POLYCLINIC.Data
                     Password = "Test admin 1",
                 }
             };
+            var voucherList = new List<VoucherForAppointment>()
+            {
+                new VoucherForAppointment()
+                {
+                    State = voucherStateList[0],
+                    Date = DateTime.Now,
+                    Doctor = doctorList[0],
+                    Patient = patientList[0]
+                },
+                new VoucherForAppointment()
+                {
+                    State = voucherStateList[1],
+                    Date = DateTime.Now,
+                    Doctor = doctorList[0],
+                    Patient = patientList[0]
+                }
+            };
 
             genderList.ForEach(e => context.Gender.Add(e));
             dayList.ForEach(e => context.Weekday.Add(e));
@@ -115,6 +133,7 @@ namespace POLYCLINIC.Data
             specializationList.ForEach(e => context.Specialization.Add(e));
             doctorList.ForEach(e => context.Doctor.Add(e));
             adminList.ForEach(e => context.Admin.Add(e));
+            voucherList.ForEach(e => context.VoucherForAppointment.Add(e));
 
             context.SaveChanges();
         }
