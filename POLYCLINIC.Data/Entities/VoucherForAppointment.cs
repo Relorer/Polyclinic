@@ -2,6 +2,8 @@
 
 namespace POLYCLINIC.Data.Entities
 {
+    public enum VoucherState { Opened, Completed, Expired, Canceled };
+
     public class VoucherForAppointment : BaseEntity
     {
         public DateTime Date { get; set; }

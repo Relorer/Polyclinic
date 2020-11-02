@@ -1,4 +1,5 @@
-﻿using POLYCLINIC.BLL.Models;
+﻿using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.BLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,11 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public CancelVoucherCommand()
+        private readonly ICancleVoucherService cancelVoucherService;
+
+        public CancelVoucherCommand(ICancleVoucherService cancelVoucherService)
         {
+            this.cancelVoucherService = cancelVoucherService;
         }
 
         public bool CanExecute(object parameter)
@@ -28,7 +32,8 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
 
         public void Execute(object parameter)
         {
-            Console.WriteLine(parameter);
+            VoucherForAppointmentModel model = parameter as VoucherForAppointmentModel;
+            cancelVoucherService.CancelVoucher(model.Entity.Id);
         }
     }
 }

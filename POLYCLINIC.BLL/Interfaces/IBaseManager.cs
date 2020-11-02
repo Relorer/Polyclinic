@@ -16,7 +16,8 @@ namespace POLYCLINIC.BLL.Interfaces
         LiveData<Specialization> Specialization { get; }
         LiveData<Street> Street { get; }
         LiveData<User> User { get; }
-        LiveData<VoucherState> VoucherState { get; }
         LiveData<VoucherForAppointment> VoucherForAppointment { get; }
+
+        void Save();
     }
 }

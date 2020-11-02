@@ -24,13 +24,9 @@ namespace POLYCLINIC.Client.Infrastructure
             }
         }
 
-        private Dictionary<string, Page> pages = new Dictionary<string, Page>();
-
         public void Navigate(Page page)
         {
-            string name = page.GetType().Name;
-            pages[name] = pages.ContainsKey(name) ? pages[name] : page;
-            CurrentPage = pages[name];
+            CurrentPage = page;
         }
 
     }

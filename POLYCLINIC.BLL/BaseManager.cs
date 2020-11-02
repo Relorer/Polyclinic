@@ -21,7 +21,6 @@ namespace POLYCLINIC.BLL
         private LiveData<Street> street;
         private LiveData<User> user;
         private LiveData<Country> country;
-        private LiveData<VoucherState> voucherState;
         private LiveData<VoucherForAppointment> voucherForAppointment;
 
         public LiveData<Gender> Gender => gender ?? (gender = new LiveData<Gender>(ctx.Gender));
@@ -36,12 +35,30 @@ namespace POLYCLINIC.BLL
         public LiveData<Street> Street => street ?? (street = new LiveData<Street>(ctx.Street));
         public LiveData<User> User => user ?? (user = new LiveData<User>(ctx.User));
         public LiveData<Country> Country => country ?? (country = new LiveData<Country>(ctx.Country));
-        public LiveData<VoucherState> VoucherState => voucherState ?? (voucherState = new LiveData<VoucherState>(ctx.VoucherState));
         public LiveData<VoucherForAppointment> VoucherForAppointment => voucherForAppointment ?? (voucherForAppointment = new LiveData<VoucherForAppointment>(ctx.VoucherForAppointment));
 
         public BaseManager()
         {
             this.ctx = new BaseContext();
+        }
+
+        public void Save()
+        {
+            ctx.SaveChanges();
+
+            gender?.Refresh();
+            weekday?.Refresh();
+            visit?.Refresh();
+            admin?.Refresh();
+            doctor?.Refresh();
+            patient?.Refresh();
+            region?.Refresh();
+            scheduleSlot?.Refresh();
+            specialization?.Refresh();
+            street?.Refresh();
+            user?.Refresh();
+            country?.Refresh();
+            voucherForAppointment?.Refresh();
         }
     }
 }

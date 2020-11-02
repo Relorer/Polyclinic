@@ -64,7 +64,8 @@
                         <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Личный кабинет</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="auto" />
@@ -73,158 +74,160 @@
                         <RowDefinition />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <StackPanel
+                        <StackPanel
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Stretch">
-                        <Expander HorizontalAlignment="Stretch">
-                            <Expander.Header>
-                                <TextBlock Style="{StaticResource Title}">Алексей Алексеевич Ухтомский</TextBlock>
-                            </Expander.Header>
-                            <StackPanel>
-                                <Grid Margin="24,8,24,16" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="170" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock
+                            <Expander HorizontalAlignment="Stretch">
+                                <Expander.Header>
+                                    <TextBlock Style="{StaticResource Title}">Алексей Алексеевич Ухтомский</TextBlock>
+                                </Expander.Header>
+                                <StackPanel Width="{Binding ElementName=DataGridVoucher, Path=ActualWidth}">
+                                    <Grid Margin="24,8,24,16" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="170" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
                                         Grid.Row="1"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="Пол"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="2"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="Дата рождения"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="3"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="Место рождения"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="4"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="Гражданство"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="5"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="Документ, удостоверяющий личность"
                                         TextWrapping="Wrap" />
 
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="1"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="{Binding Patient.Gender.Name}"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="2"
                                         Grid.Column="1"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="{Binding DateOfBirthWithoutTime}"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="3"
                                         Grid.Column="1"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="{Binding Patient.PlaceOfBirth}"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="4"
                                         Grid.Column="1"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="{Binding Patient.Citizenship.Name}"
                                         TextWrapping="Wrap" />
-                                    <TextBlock
+                                        <TextBlock
                                         Grid.Row="5"
                                         Grid.Column="1"
                                         Margin="3"
                                         Opacity=".68"
                                         Text="{Binding Patient.IdentityDocument}"
                                         TextWrapping="Wrap" />
-                                </Grid>
-                                <Button
+                                    </Grid>
+                                    <Button
                                     Margin="24,0,24,16"
                                     HorizontalAlignment="Right"
                                     Command="{Binding LogOutCommand}"
                                     Style="{StaticResource MaterialDesignFlatButton}">
-                                    Выйти
-                                </Button>
-                            </StackPanel>
-                        </Expander>
-                        <Expander
+                                        Выйти
+                                    </Button>
+                                </StackPanel>
+                            </Expander>
+                            <Expander
                             x:Name="ExpanderVouchers"
                             HorizontalAlignment="Stretch"
                             IsExpanded="True">
-                            <Expander.Header>
-                                <TextBlock Style="{StaticResource Title}">Мои записи на прием</TextBlock>
-                            </Expander.Header>
-                            <StackPanel
+                                <Expander.Header>
+                                    <TextBlock Style="{StaticResource Title}">Мои записи на прием</TextBlock>
+                                </Expander.Header>
+                                <StackPanel
                                 Margin="24,8,24,16"
                                 Orientation="Vertical"
                                 TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                <DataGrid
+                                    <DataGrid
                                     x:Name="DataGridVoucher"
                                     AutoGenerateColumns="False"
                                     CanUserAddRows="False"
                                     HeadersVisibility="All"
                                     IsReadOnly="True"
                                     ItemsSource="{Binding Vouchers}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn
                                             Binding="{Binding Path=Doctor}"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             ElementStyle="{StaticResource DataGridTextColumnCenter}"
                                             Header="Врач"
                                             HeaderStyle="{StaticResource DataGridTextHeaderColumnCenter}" />
-                                        <DataGridTextColumn
+                                            <DataGridTextColumn
                                             Binding="{Binding Path=DoctorSpecialization}"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                                             ElementStyle="{StaticResource DataGridTextColumnCenter}"
                                             Header="Специализация врача"
                                             HeaderStyle="{StaticResource DataGridTextHeaderColumnCenter}" />
-                                        <DataGridTextColumn
+                                            <DataGridTextColumn
                                             Binding="{Binding Path=Date}"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             ElementStyle="{StaticResource DataGridTextColumnCenter}"
                                             Header="Дата приема"
                                             HeaderStyle="{StaticResource DataGridTextHeaderColumnCenter}" />
-                                        <DataGridTextColumn
+                                            <DataGridTextColumn
                                             Binding="{Binding Path=State}"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             ElementStyle="{StaticResource DataGridTextColumnCenter}"
                                             Header="Состояние"
                                             HeaderStyle="{StaticResource DataGridTextHeaderColumnCenter}" />
-                                        <DataGridTextColumn
+                                            <DataGridTextColumn
                                             Binding="{Binding Path=Number}"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                                             ElementStyle="{StaticResource DataGridTextColumnCenter}"
                                             Header="Номер"
                                             HeaderStyle="{StaticResource DataGridTextHeaderColumnCenter}" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </StackPanel>
-                        </Expander>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Expander>
+
+                       
                     </StackPanel>
 
                     <Button
@@ -239,6 +242,7 @@
                         <materialDesign:PackIcon Kind="Close" />
                     </Button>
                 </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
                 <TabItem.Header>

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.ServiceModel.Channels;
 
 namespace POLYCLINIC.BLL.Infrastructure
 {
@@ -50,6 +51,11 @@ namespace POLYCLINIC.BLL.Infrastructure
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return dbSet.FirstOrDefault(predicate);
+        }
+
+        public virtual void Refresh()
+        {
+            OnPropertyChanged();
         }
 
         private void OnPropertyChanged()

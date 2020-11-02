@@ -23,7 +23,7 @@ namespace POLYCLINIC.Client.ViewModels
 
         private CancelVoucherCommand cancelVoucherCommand;
         public CancelVoucherCommand CancelVoucherCommand => cancelVoucherCommand ??
-                  (cancelVoucherCommand = new CancelVoucherCommand());
+                  (cancelVoucherCommand = new CancelVoucherCommand(IoC.Get<ICancleVoucherService>()));
 
         public VMPatient()
         {
@@ -34,7 +34,7 @@ namespace POLYCLINIC.Client.ViewModels
             if (!(user is Patient)) throw new Exception("Invalid user type");
             Patient = user as Patient;
             
-            baseManager.VoucherForAppointment.TableChanged += (sender, e) => OnPropertyChanged("VoucherForAppointmentModels");
+            baseManager.VoucherForAppointment.TableChanged += (sender, e) => OnPropertyChanged("Vouchers");
         }
     }
 }

@@ -27,13 +27,6 @@ namespace POLYCLINIC.Data
                 new Weekday(){Name = "Суббота"},
                 new Weekday(){Name = "Воскресенье"}
             };
-            var voucherStateList = new List<VoucherState>()
-            {
-                new VoucherState(){Name = "Открыта"},
-                new VoucherState(){Name = "Завершена"},
-                new VoucherState(){Name = "Просрочена"},
-                new VoucherState(){Name = "Отменена"}
-            };
             var streetList = new List<Street>()
             {
                 new Street(){Name = "S1"},
@@ -110,14 +103,14 @@ namespace POLYCLINIC.Data
             {
                 new VoucherForAppointment()
                 {
-                    State = voucherStateList[0],
+                    State = VoucherState.Opened,
                     Date = DateTime.Now,
                     Doctor = doctorList[0],
                     Patient = patientList[0]
                 },
                 new VoucherForAppointment()
                 {
-                    State = voucherStateList[1],
+                    State = VoucherState.Completed,
                     Date = DateTime.Now,
                     Doctor = doctorList[0],
                     Patient = patientList[0]
@@ -126,7 +119,6 @@ namespace POLYCLINIC.Data
 
             genderList.ForEach(e => context.Gender.Add(e));
             dayList.ForEach(e => context.Weekday.Add(e));
-            voucherStateList.ForEach(e => context.VoucherState.Add(e));
             streetList.ForEach(e => context.Street.Add(e));
             regionList.ForEach(e => context.Region.Add(e));
             patientList.ForEach(e => context.Patient.Add(e));

@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using POLYCLINIC.BLL;
 using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.BLL.Services;
 using POLYCLINIC.Client.Infrastructure;
 using POLYCLINIC.Client.Interfaces;
 
@@ -13,6 +14,7 @@ namespace POLYCLINIC.Client
             Bind<IBaseManager>().To<BaseManager>().InSingletonScope();
             Bind<IAuthorizationService>().To<AuthorizationService>().InSingletonScope();
             Bind<IMainNavigation>().To<MainNavigation>().InSingletonScope();
+            Bind<ICancleVoucherService>().To<CancelVoucherService>();
         }
     }
 }

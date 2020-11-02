@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -66,6 +68,7 @@
     <Compile Include="Interfaces\IAuthorizationService.cs" />
     <Compile Include="Interfaces\IBaseManager.cs" />
     <Compile Include="Infrastructure\LiveData.cs" />
+    <Compile Include="Interfaces\ICancleVoucherService.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\VoucherForAppointmentModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -76,6 +79,7 @@
     <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="BaseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CancelVoucherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
