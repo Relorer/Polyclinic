@@ -132,7 +132,6 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Visit.cs" />
     <Compile Include="Entities\VoucherForAppointment.cs" />
-    <Compile Include="Entities\Weekday.cs" />
     <Compile Include="Context\PolyclinicInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

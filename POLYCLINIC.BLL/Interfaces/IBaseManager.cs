@@ -6,7 +6,6 @@ namespace POLYCLINIC.BLL.Interfaces
     public interface IBaseManager
     {
         LiveData<Gender> Gender { get; }
-        LiveData<Weekday> Weekday { get; }
         LiveData<Visit> Visit { get; }
         LiveData<Admin> Admin { get; }
         LiveData<Doctor> Doctor { get; }

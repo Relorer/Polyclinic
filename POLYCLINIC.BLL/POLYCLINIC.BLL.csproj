@@ -64,12 +64,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DateTimeExtensions.cs" />
     <Compile Include="Infrastructure\EntityModelConverterExtension.cs" />
+    <Compile Include="Infrastructure\Week.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
     <Compile Include="Interfaces\IBaseManager.cs" />
     <Compile Include="Infrastructure\LiveData.cs" />
     <Compile Include="Interfaces\ICancleVoucherService.cs" />
+    <Compile Include="Interfaces\IСreatingVoucherService.cs" />
+    <Compile Include="Interfaces\IWeekViewerService.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\WeeklyScheduleModel.cs" />
+    <Compile Include="Models\ScheduleDayModel.cs" />
+    <Compile Include="Models\ScheduleSlotModel.cs" />
     <Compile Include="Models\VoucherForAppointmentModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,6 +87,8 @@
     <Compile Include="BaseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CancelVoucherService.cs" />
+    <Compile Include="Services\WeekViewerService.cs" />
+    <Compile Include="Services\СreatingVoucherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

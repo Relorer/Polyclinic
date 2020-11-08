@@ -12,9 +12,4 @@ namespace POLYCLINIC.Client.Interfaces
 
         void Navigate(Page page);
     }
-
-    public interface IMainNavigation : INavigation
-    {
-        void Navigate(User user);
-    }
 }

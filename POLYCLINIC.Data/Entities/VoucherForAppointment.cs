@@ -10,5 +10,6 @@ namespace POLYCLINIC.Data.Entities
         public virtual VoucherState State { get; set; }
         public virtual Doctor Doctor { get; set; }
         public virtual Patient Patient { get; set; }
+        public virtual ScheduleSlot ScheduleSlot { get; set; }
     }
 }

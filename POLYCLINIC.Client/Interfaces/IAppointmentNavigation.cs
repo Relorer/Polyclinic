@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POLYCLINIC.Data.Entities
+namespace POLYCLINIC.Client.Interfaces
 {
-    public class Weekday : BaseEntity
+    interface IAppointmentNavigation : INavigation
     {
-        public string Name { get; set; }
     }
 }

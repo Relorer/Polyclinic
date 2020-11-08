@@ -10,7 +10,6 @@ namespace POLYCLINIC.BLL
         private BaseContext ctx;
 
         private LiveData<Gender> gender;
-        private LiveData<Weekday> weekday;
         private LiveData<Visit> visit;
         private LiveData<Admin> admin;
         private LiveData<Doctor> doctor;
@@ -24,7 +23,6 @@ namespace POLYCLINIC.BLL
         private LiveData<VoucherForAppointment> voucherForAppointment;
 
         public LiveData<Gender> Gender => gender ?? (gender = new LiveData<Gender>(ctx.Gender));
-        public LiveData<Weekday> Weekday => weekday ?? (weekday = new LiveData<Weekday>(ctx.Weekday));
         public LiveData<Visit> Visit => visit ?? (visit = new LiveData<Visit>(ctx.Visit));
         public LiveData<Admin> Admin => admin ?? (admin = new LiveData<Admin>(ctx.Admin));
         public LiveData<Doctor> Doctor => doctor ?? (doctor = new LiveData<Doctor>(ctx.Doctor));
@@ -47,7 +45,6 @@ namespace POLYCLINIC.BLL
             ctx.SaveChanges();
 
             gender?.Refresh();
-            weekday?.Refresh();
             visit?.Refresh();
             admin?.Refresh();
             doctor?.Refresh();

@@ -13,7 +13,6 @@ namespace POLYCLINIC.Data
         }
 
         public DbSet<Gender> Gender { get; set; }
-        public DbSet<Weekday> Weekday { get; set; }
         public DbSet<Visit> Visit { get; set; }
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Doctor> Doctor { get; set; }

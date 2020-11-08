@@ -7,11 +7,11 @@ namespace POLYCLINIC.BLL.Models
     {
         public int Number => Entity.Id;
         public string Date => Entity.Date.ToString("dd MMMM yyyy HH:mm");
-        public string State => GetRussianNameVoucherState(Entity.State);
+        public string State => TranslateToRussian(Entity.State);
         public string Doctor => Entity.Doctor.FirstName + " " + Entity.Doctor.LastName;
         public string DoctorSpecialization => Entity.Doctor.Specialization.Name;
 
-        private string GetRussianNameVoucherState(VoucherState state)
+        private string TranslateToRussian(VoucherState state)
         {
             return state switch
             {
