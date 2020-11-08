@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:POLYCLINIC.Client.Views.Pages.MakeAppointment"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels.MakeAppointment"
     Title="ConfirmChoice"
@@ -16,20 +17,34 @@
     </Page.DataContext>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <Button
+            Margin="5"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding BackCommand}"
+            Style="{StaticResource MaterialDesignIconForegroundButton}"
+            ToolTip="MaterialDesignIconForegroundButton">
+            <materialDesign:PackIcon Kind="ArrowLeft" />
+        </Button>
         <TextBlock
             Grid.Row="0"
-            Margin="24,16,24,16"
+            Grid.Column="1"
             Opacity=".9"
             Style="{StaticResource Title}">
             Подтвердите запись
         </TextBlock>
         <StackPanel
             Grid.Row="1"
+            Grid.ColumnSpan="2"
             Width="{Binding ElementName=DataGridVoucher, Path=ActualWidth}"
             Margin="24,0,24,0"
             Orientation="Vertical"
@@ -88,6 +103,7 @@
         </StackPanel>
         <StackPanel
             Grid.Row="2"
+            Grid.ColumnSpan="2"
             Margin="0,0,24,24"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
