@@ -15,6 +15,14 @@ namespace POLYCLINIC.Client.ViewModels.MakeAppointment
         public string Doctor => $"{сreatingVoucherService.Doctor.FirstName} {сreatingVoucherService.Doctor.LastName}";
         public string Specialization => сreatingVoucherService.Specialization.Name;
 
+        private RelayCommand backCommand;
+        public RelayCommand BackCommand
+        {
+            get
+            {
+                return backCommand ?? (backCommand = new RelayCommand(obj => navigation.Navigate(new ChoiceDoctor())));
+            }
+        }
 
         private RelayCommand cancelCommand;
         public RelayCommand CancelCommand
