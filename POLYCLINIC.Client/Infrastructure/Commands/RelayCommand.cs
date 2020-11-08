@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace POLYCLINIC.Client.Utils
+namespace POLYCLINIC.Client.Infrastructure
 {
-    public class RelayCommand : ICommand
+    internal class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {

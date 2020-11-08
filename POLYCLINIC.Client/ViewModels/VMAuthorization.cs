@@ -1,22 +1,13 @@
-﻿using POLYCLINIC.Client.Pages;
-using POLYCLINIC.Client.Utils;
+﻿using POLYCLINIC.BLL.Interfaces;
+using POLYCLINIC.Client.Infrastructure.Commands;
+using POLYCLINIC.Client.Interfaces;
 
 namespace POLYCLINIC.Client.ViewModels
 {
     class VMAuthorization : VMBase
     {
-        private RelayCommand logInCommand;
-        public RelayCommand LogInCommand
-        {
-            get
-            {
-                return logInCommand ??
-                  (logInCommand = new RelayCommand(obj =>
-                  {
-                      //TODO Authorization logic
-                      MainNavigation.Instance.Navigate(new Patient());
-                  }));
-            }
-        }
+        private LogInCommand logInCommand;
+        public LogInCommand LogInCommand => logInCommand ??
+                  (logInCommand = new LogInCommand(IoC.Get<IMainNavigation>(), IoC.Get<IAuthorizationService>()));
     }
 }

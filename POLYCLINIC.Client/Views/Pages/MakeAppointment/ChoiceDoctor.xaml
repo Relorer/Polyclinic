@@ -2,13 +2,38 @@
     x:Class="POLYCLINIC.Client.Pages.ChoiceDoctor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converter="clr-namespace:POLYCLINIC.Client.Infrastructure.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
+    Name="ThisPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Style="{StaticResource Page}"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewmodels:VMChoiceDoctor />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Converter:AppointmentDayDataMultiConverter x:Key="appointmentDayDataMultiConverter" />
+        <Style
+            x:Key="DataGridTextColumn"
+            BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+            TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        </Style>
+        <Style
+            x:Key="DataGridTextColumnCenter"
+            BasedOn="{StaticResource DataGridTextColumn}"
+            TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,6 +48,7 @@
             Margin="5"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            Command="{Binding BackCommand}"
             Style="{StaticResource MaterialDesignIconForegroundButton}"
             ToolTip="MaterialDesignIconForegroundButton">
             <materialDesign:PackIcon Kind="ArrowLeft" />
@@ -43,95 +69,203 @@
                 LastChildFill="True">
                 <Button
                     HorizontalAlignment="left"
+                    Command="{Binding GoToPrevWeekCommand}"
+                    Content="{Binding PrevWeekString}"
                     DockPanel.Dock="Left"
                     FontSize="12"
-                    IsEnabled="False"
-                    Style="{StaticResource MaterialDesignFlatButton}">
-                    ← 28 - 4 октября
-                </Button>
+                    Style="{StaticResource MaterialDesignFlatButton}" />
                 <Button
                     HorizontalAlignment="Right"
+                    Command="{Binding GoToNextWeekCommand}"
+                    Content="{Binding NextWeekString}"
                     DockPanel.Dock="Right"
                     FontSize="12"
-                    Style="{StaticResource MaterialDesignFlatButton}">
-                    12 - 18 октября →
-                </Button>
+                    Style="{StaticResource MaterialDesignFlatButton}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="12"
-                    FontWeight="Medium">
-                    5 - 11 октября
-                </TextBlock>
+                    FontWeight="Medium"
+                    Text="{Binding CurrentWeekString}" />
             </DockPanel>
             <DataGrid
+                Name="DataGridDoctors"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 HeadersVisibility="All"
-                ItemsSource="{Binding Items1}">
+                IsReadOnly="True"
+                ItemsSource="{Binding Doctors}"
+                SelectionMode="Single"
+                SelectionUnit="Cell">
                 <DataGrid.Columns>
-                    <DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                    <DataGridTextColumn
+                        Binding="{Binding Path=DoctorFullName}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource DataGridTextColumn}">
                         <DataGridTextColumn.Header>
                             <TextBlock TextWrapping="Wrap">Специалист</TextBlock>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Monday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Пн 05 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Monday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Tuesday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Вт 06 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Tuesday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Wednesday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Ср 07 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Wednesday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Thursday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Чт 08 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Thursday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Friday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Пт 09 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Friday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Saturday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Сб 10 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Saturday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="85"
+                        Width="90"
+                        Binding="{Binding Path=Sunday}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextAlignment="Center" TextWrapping="Wrap">Вс 11 октября</TextBlock>
-                        </DataGridTextColumn.Header>
+                        ElementStyle="{StaticResource DataGridTextColumnCenter}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Text="{Binding ElementName=ThisPage, Path=DataContext.Sunday}"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding ChooseDoctorCommand}">
+                            <i:InvokeCommandAction.CommandParameter>
+                                <MultiBinding Converter="{StaticResource appointmentDayDataMultiConverter}">
+                                    <Binding ElementName="DataGridDoctors" />
+                                    <Binding Path="CurrentWeek" />
+                                </MultiBinding>
+                            </i:InvokeCommandAction.CommandParameter>
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </DataGrid>
         </StackPanel>
     </Grid>

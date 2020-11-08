@@ -121,6 +121,7 @@
     <Compile Include="Context\BaseContext.cs" />
     <Compile Include="Entities\Admin.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Doctor.cs" />
     <Compile Include="Entities\Gender.cs" />
     <Compile Include="Entities\Patient.cs" />
@@ -131,24 +132,12 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Visit.cs" />
     <Compile Include="Entities\VoucherForAppointment.cs" />
-    <Compile Include="Entities\VoucherState.cs" />
-    <Compile Include="Entities\Weekday.cs" />
     <Compile Include="Context\PolyclinicInitializer.cs" />
-    <Compile Include="Migrations\202010251541522_Init.cs" />
-    <Compile Include="Migrations\202010251541522_Init.designer.cs">
-      <DependentUpon>202010251541522_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010251541522_Init.resx">
-      <DependentUpon>202010251541522_Init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

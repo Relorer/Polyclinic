@@ -5,9 +5,9 @@ namespace POLYCLINIC.Client.Pages
     /// <summary>
     /// Логика взаимодействия для Patient.xaml
     /// </summary>
-    public partial class Patient : Page
+    public partial class PatientPage : Page
     {
-        public Patient()
+        public PatientPage()
         {
             InitializeComponent();
         }

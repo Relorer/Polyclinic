@@ -6,10 +6,16 @@
     xmlns:local="clr-namespace:POLYCLINIC.Client.Pages"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
+    Name="ThisPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Style="{StaticResource Page}"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewmodels:VMChoiceTime />
+    </Page.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,6 +30,7 @@
             Margin="5"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            Command="{Binding BackCommand}"
             Style="{StaticResource MaterialDesignIconForegroundButton}"
             ToolTip="MaterialDesignIconForegroundButton">
             <materialDesign:PackIcon Kind="ArrowLeft" />
@@ -44,50 +51,47 @@
                 LastChildFill="True">
                 <Button
                     HorizontalAlignment="left"
+                    Command="{Binding GoToPrevDayCommand}"
+                    Content="{Binding PrevDay}"
                     DockPanel.Dock="Left"
                     FontSize="12"
-                    IsEnabled="False"
-                    Style="{StaticResource MaterialDesignFlatButton}">
-                    ← 12 октября
-                </Button>
+                    Style="{StaticResource MaterialDesignFlatButton}" />
                 <Button
                     HorizontalAlignment="Right"
+                    Command="{Binding GoToNextDayCommand}"
+                    Content="{Binding NextDay}"
                     DockPanel.Dock="Right"
                     FontSize="12"
-                    Style="{StaticResource MaterialDesignFlatButton}">
-                    14 октября →
-                </Button>
+                    Style="{StaticResource MaterialDesignFlatButton}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="12"
-                    FontWeight="Medium">
-                    13 октября
-                </TextBlock>
+                    FontWeight="Medium"
+                    Text="{Binding CurrentDay}" />
             </DockPanel>
-            <DataGrid
-                AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                HeadersVisibility="All"
-                ItemsSource="{Binding Items1}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock TextWrapping="Wrap">Часы приема</TextBlock>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Width="355"
-                                TextAlignment="Center"
-                                TextWrapping="Wrap">
-                                Вт 11:00 - 14:00
-                            </TextBlock>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <TextBlock
+                Margin="0,10,0,6"
+                Text="{Binding CurrentDayDetails}"
+                TextAlignment="Center" />
+            <Separator Margin="0,0,0,10" Opacity=".68" />
+            <ItemsControl Width="500" ItemsSource="{Binding ScheduleSlots}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            Width="90"
+                            Margin="5"
+                            Command="{Binding ElementName=ThisPage, Path=DataContext.ChooseTimeCommand}"
+                            CommandParameter="{Binding}"
+                            Content="{Binding Path=StartTimeFormated}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </Page>

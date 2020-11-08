@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POLYCLINIC.Data.Entities
+namespace POLYCLINIC.BLL.Interfaces
 {
-    public class Weekday : BaseEntity
+    public interface ICancleVoucherService
     {
-        public string Name { get; set; }
+        void CancelVoucher(int voucherId);
     }
 }

@@ -13,7 +13,6 @@ namespace POLYCLINIC.Data
         }
 
         public DbSet<Gender> Gender { get; set; }
-        public DbSet<Weekday> Weekday { get; set; }
         public DbSet<Visit> Visit { get; set; }
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Doctor> Doctor { get; set; }
@@ -22,8 +21,8 @@ namespace POLYCLINIC.Data
         public DbSet<ScheduleSlot> ScheduleSlot { get; set; }
         public DbSet<Specialization> Specialization { get; set; }
         public DbSet<Street> Street { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<VoucherState> VoucherState { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Country> Country { get; set; }
         public DbSet<VoucherForAppointment> VoucherForAppointment { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

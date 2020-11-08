@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POLYCLINIC.Data.Entities
 {
-    public class VoucherState : BaseEntity
+    public class Country : BaseEntity
     {
         public string Name { get; set; }
     }

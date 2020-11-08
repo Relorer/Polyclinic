@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
-namespace POLYCLINIC.Client.Utils
+namespace POLYCLINIC.Client.Infrastructure
 {
-    public abstract class Navigation
+    public abstract class BaseNavigation
     {
         public event PropertyChangedEventHandler CurrentPageChanged;
 
@@ -22,11 +24,10 @@ namespace POLYCLINIC.Client.Utils
             }
         }
 
-        protected Dictionary<string, Page> pages = new Dictionary<string, Page>();
-
         public void Navigate(Page page)
         {
-            CurrentPage = pages[page.GetType().Name];
+            CurrentPage = page;
         }
+
     }
 }
