@@ -24,6 +24,7 @@ namespace POLYCLINIC.Data
         public DbSet<User> User { get; set; }
         public DbSet<Country> Country { get; set; }
         public DbSet<VoucherForAppointment> VoucherForAppointment { get; set; }
+        public DbSet<NonWorkingDay> NonWorkingDay { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

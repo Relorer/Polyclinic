@@ -1,6 +1,7 @@
 ﻿using POLYCLINIC.BLL.Interfaces;
 using POLYCLINIC.Client.Interfaces;
 using POLYCLINIC.Client.Pages;
+using POLYCLINIC.Client.Views.Pages;
 using POLYCLINIC.Data.Entities;
 using System;
 
@@ -24,7 +25,7 @@ namespace POLYCLINIC.Client.Infrastructure
             }
             else if (user is Admin)
             {
-                throw new Exception("Admin is not supported");
+                Navigate(new AdminPage());
             }
         }
 

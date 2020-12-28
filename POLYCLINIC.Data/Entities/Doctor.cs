@@ -9,5 +9,6 @@ namespace POLYCLINIC.Data.Entities
         public virtual ICollection<ScheduleSlot> ScheduleSlots { get; set; }
         public ICollection<VoucherForAppointment> Vouchers { get; set; }
         public ICollection<Visit> Visits { get; set; }
+        public virtual ICollection<NonWorkingDay> NonWorkingDays { get; set; }
     }
 }

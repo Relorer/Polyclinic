@@ -56,7 +56,7 @@ namespace POLYCLINIC.Client.ViewModels
                 }, obj =>
                 {
                     var now = DateTime.Now;
-                    return now.Day <= day.AddDays(-1).Day;
+                    return now <= day.AddDays(-1);
                 }
                 ));
             }
@@ -97,8 +97,8 @@ namespace POLYCLINIC.Client.ViewModels
             var slots = сreatingVoucherService.Doctor.ScheduleSlots.ToList().Where(s => s.Weekday == day.DayOfWeek);
             if (slots.Count() > 0)
             {
-                TimeSpan start = TimeSpan.MaxValue;
-                TimeSpan end = TimeSpan.MinValue;
+                DateTime start = DateTime.MaxValue;
+                DateTime end = DateTime.MinValue;
                 foreach (var slot in slots)
                 {
                     start = slot.StartTime < start ? slot.StartTime : start;

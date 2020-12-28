@@ -124,6 +124,7 @@
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Doctor.cs" />
     <Compile Include="Entities\Gender.cs" />
+    <Compile Include="Entities\NonWorkingDay.cs" />
     <Compile Include="Entities\Patient.cs" />
     <Compile Include="Entities\Region.cs" />
     <Compile Include="Entities\ScheduleSlot.cs" />

@@ -10,7 +10,7 @@ namespace POLYCLINIC.Client.ViewModels.MakeAppointment
         private readonly IAppointmentNavigation navigation;
         private readonly IСreatingVoucherService сreatingVoucherService;
 
-        public string Date => сreatingVoucherService.Date.Date.AddMilliseconds(сreatingVoucherService.ScheduleSlot.StartTime.TotalMilliseconds)
+        public string Date => сreatingVoucherService.Date.Date.AddMilliseconds(сreatingVoucherService.ScheduleSlot.StartTime.Millisecond)
                                                               .ToString("dd MMMM yyyy HH:mm");
         public string Doctor => $"{сreatingVoucherService.Doctor.FirstName} {сreatingVoucherService.Doctor.LastName}";
         public string Specialization => сreatingVoucherService.Specialization.Name;

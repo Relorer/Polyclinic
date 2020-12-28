@@ -29,10 +29,17 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
         public bool CanExecute(object parameter)
         {
             ScheduleSlotModel model = parameter as ScheduleSlotModel;
+
             return model != null && (model.Entity.Doctor.Vouchers == null || !model.Entity.Doctor.Vouchers.Any(voucher =>
             voucher.ScheduleSlot == model.Entity &&
             voucher.State == VoucherState.Opened &&
-            voucher.Date.Date == сreatingVoucherService.Date.Date));
+            voucher.Date.Date == сreatingVoucherService.Date.Date)) &&
+            model.Entity.Doctor
+            .NonWorkingDays?
+            .FirstOrDefault(n => n.Date.Year == сreatingVoucherService.Date.Year &&
+                n.Date.Month == сreatingVoucherService.Date.Month &&
+                n.Date.Day == сreatingVoucherService.Date.Day
+            ) == null;
         }
 
         public void Execute(object parameter)

@@ -18,6 +18,8 @@ namespace POLYCLINIC.Client.ViewModels
         private readonly IAppointmentNavigation navigation;
         private readonly IСreatingVoucherService сreatingVoucherService;
         private readonly IWeekViewerService weekViewerService;
+        private readonly IAuthorizationService authorization;
+        public Patient Patient { get; }
 
         #region Weeks
 
@@ -45,7 +47,7 @@ namespace POLYCLINIC.Client.ViewModels
             get
             {
                 var doctors = baseManager.Doctor.List
-                    .Where(d => d.Specialization == сreatingVoucherService.Specialization)
+                    .Where(d => d.Specialization == сreatingVoucherService.Specialization && Patient.Street.Region.Id == d.Region.Id)
                     .ToList()
                     .ModelList<Doctor, WeeklyScheduleModel>();
                 foreach (var doctor in doctors) doctor.Week = CurrentWeek;
@@ -103,7 +105,10 @@ namespace POLYCLINIC.Client.ViewModels
             this.baseManager = IoC.Get<IBaseManager>();
             this.navigation = IoC.Get<IAppointmentNavigation>();
             this.сreatingVoucherService = IoC.Get<IСreatingVoucherService>();
+            this.authorization = IoC.Get<IAuthorizationService>();
             this.weekViewerService = IoC.Get<IWeekViewerService>();
+
+            Patient = getCurrentPatient();
 
             baseManager.Doctor.TableChanged += (sender, e) => OnPropertyChanged("Doctors");
         }
@@ -123,6 +128,12 @@ namespace POLYCLINIC.Client.ViewModels
             OnPropertyChanged("Friday");
             OnPropertyChanged("Saturday");
             OnPropertyChanged("Sunday");
+        }
+        private Patient getCurrentPatient()
+        {
+            User user = authorization.GetCurrentUser();
+            if (!(user is Patient)) throw new Exception("Invalid user type");
+            return user as Patient;
         }
     }
 }

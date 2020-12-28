@@ -36,7 +36,7 @@ namespace POLYCLINIC.BLL.Services
             }
             var voucher = new VoucherForAppointment()
             {
-                Date = this.Date.Date.AddMilliseconds(ScheduleSlot.StartTime.TotalMilliseconds),
+                Date = this.Date.Date.AddMilliseconds(ScheduleSlot.StartTime.Millisecond),
                 ScheduleSlot = this.ScheduleSlot,
                 Doctor = this.Doctor,
                 Patient = (Patient)authorizationService.GetCurrentUser(),

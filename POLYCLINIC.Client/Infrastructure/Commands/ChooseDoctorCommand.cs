@@ -35,7 +35,7 @@ namespace POLYCLINIC.Client.Infrastructure.Commands
             {
                 var schedule = new WeeklyScheduleModel() { Entity = doctor, Week = new BLL.Infrastructure.Week(date) };
                 var day = schedule[date.DayOfWeek];
-                return date.Day >= DateTime.Now.Day && day.NumberScheduleSlots > 0 && (day.NumberScheduleSlots - day.NumberOccupied) >= 0;
+                return date >= DateTime.Now && day.NumberScheduleSlots > 0 && (day.NumberScheduleSlots - day.NumberOccupied) >= 0;
             }
             return false;
         }

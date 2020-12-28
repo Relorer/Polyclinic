@@ -1,0 +1,811 @@
+﻿<Page
+    x:Class="POLYCLINIC.Client.Views.Pages.AdminPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:local="clr-namespace:POLYCLINIC.Client.Views.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:POLYCLINIC.Client.ViewModels"
+    Title="Admin"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewmodels:VMAdmin />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style
+            x:Key="MaterialDesignNavigationRailTabItemWithTitle"
+            BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}"
+            TargetType="TabItem">
+            <Setter Property="Control.Width" Value="Auto" />
+            <Setter Property="Control.Height" Value="Auto" />
+            <Setter Property="Padding" Value="6" />
+        </Style>
+        <Style x:Key="MainMenuTabItemHeader" TargetType="StackPanel">
+            <Setter Property="Control.Width" Value="170" />
+            <Setter Property="Orientation" Value="Horizontal" />
+        </Style>
+        <Style x:Key="MainMenuTabItemHeaderTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="MainMenuTabItemHeaderIcon" TargetType="materialDesign:PackIcon">
+            <Setter Property="Control.Width" Value="22" />
+            <Setter Property="Control.Height" Value="22" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style
+            x:Key="DataGridTextHeaderColumnCenter"
+            BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
+            TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style
+            x:Key="DataGridTextColumn"
+            BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+            TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        </Style>
+        <Style
+            x:Key="DataGridTextColumnCenter"
+            BasedOn="{StaticResource DataGridTextColumn}"
+            TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid" Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource MainMenuTabItemHeader}">
+                        <materialDesign:PackIcon Kind="Account" Style="{StaticResource MainMenuTabItemHeaderIcon}" />
+                        <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Личный кабинет</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <StackPanel Width="{Binding ElementName=DataGridVoucher, Path=ActualWidth}" Margin="24,8,24,16">
+                    <Grid TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="3"
+                            Opacity=".68"
+                            Text="Админ"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="3"
+                            Opacity=".68"
+                            Text="{Binding AdminName}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                    <Button
+                        Margin="0,0,0,16"
+                        HorizontalAlignment="Right"
+                        Command="{Binding LogOutCommand}"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        Выйти
+                    </Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource MainMenuTabItemHeader}">
+                        <materialDesign:PackIcon Kind="Doctor" Style="{StaticResource MainMenuTabItemHeaderIcon}" />
+                        <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Врачи</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <DockPanel LastChildFill="True">
+                    <StackPanel
+                        Margin="16,5,16,5"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Bottom"
+                        Orientation="Horizontal">
+                        <Button Command="{Binding SaveTables}">Сохранить</Button>
+                    </StackPanel>
+                    <DataGrid
+                        Name="DataGridDoctors"
+                        AutoGenerateColumns="False"
+                        HeadersVisibility="All"
+                        ItemsSource="{Binding Doctors}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=FirstName}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Имя"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=LastName}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Фамилия"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <materialDesign:DataGridComboBoxColumn
+                                Width="150"
+                                DisplayMemberPath="Name"
+                                Header="Специализация"
+                                IsEditable="True"
+                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Specializations}"
+                                SelectedValueBinding="{Binding Specialization}" />
+                            <materialDesign:DataGridComboBoxColumn
+                                Width="140"
+                                DisplayMemberPath="Name"
+                                Header="Район"
+                                IsEditable="True"
+                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Regions}"
+                                SelectedValueBinding="{Binding Region}" />
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=Login}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Логин"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=Password}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Пароль"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource MainMenuTabItemHeader}">
+                        <materialDesign:PackIcon Kind="BookOpen" Style="{StaticResource MainMenuTabItemHeaderIcon}" />
+                        <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Расписание врачей</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <DockPanel LastChildFill="True">
+                    <StackPanel Orientation="Horizontal">
+                        <ListBox ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding FirstName}" />
+                                        <TextBlock Text=" " />
+                                        <TextBlock Text="{Binding LastName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <ListBox ItemsSource="{Binding Days}" SelectedItem="{Binding SelectedDay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <DockPanel LastChildFill="True">
+                        <StackPanel
+                            Margin="16,5,16,5"
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
+                            <Button Margin="0,0,10,0" Command="{Binding DeleteTimes}">Удалить</Button>
+                            <Button Margin="0,0,10,0" Command="{Binding AddTimes}">Добавить</Button>
+                            <Button Command="{Binding SaveTimes}">Сохранить</Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <ListBox ItemsSource="{Binding ScheduleSlotsCurrentDoctor}" SelectedItem="{Binding SelectedSheduleSlot}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                Text="Начало: " />
+                                            <materialDesign:TimePicker Margin="0,0,10,0" SelectedTime="{Binding StartTime}" />
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                Text="Конец: " />
+                                            <materialDesign:TimePicker SelectedTime="{Binding EndTime}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource MainMenuTabItemHeader}">
+                        <materialDesign:PackIcon Kind="BadgeAccountAlert" Style="{StaticResource MainMenuTabItemHeaderIcon}" />
+                        <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Не рабочие дни врачей</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <DockPanel LastChildFill="True">
+                    <StackPanel Orientation="Horizontal">
+                        <ListBox ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctorForNonWork}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding FirstName}" />
+                                        <TextBlock Text=" " />
+                                        <TextBlock Text="{Binding LastName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <DockPanel LastChildFill="True">
+                        <StackPanel
+                            Margin="16,5,16,5"
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Bottom"
+                            Orientation="Horizontal">
+                            <Button Margin="0,0,10,0" Command="{Binding DeleteNonWorkingDay}">Удалить</Button>
+                            <Button Margin="0,0,10,0" Command="{Binding AddNonWorkingDay}">Добавить</Button>
+                            <Button Command="{Binding SaveNonWorkingDays}">Сохранить</Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <ListBox ItemsSource="{Binding NonWorkingDaysCurrentDoctor}" SelectedItem="{Binding SelectedNonWorkingDay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                Text="Дата: " />
+                                            <DatePicker Margin="0,0,10,0" SelectedDate="{Binding Date}" />
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                Text="Причина: " />
+                                            <TextBox Width="200" Text="{Binding Reason}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource MainMenuTabItemHeader}">
+                        <materialDesign:PackIcon Kind="CardAccountDetails" Style="{StaticResource MainMenuTabItemHeaderIcon}" />
+                        <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Пациенты</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <DockPanel LastChildFill="True">
+                    <StackPanel
+                        Margin="16,5,16,5"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Bottom"
+                        Orientation="Horizontal">
+                        <Button Command="{Binding SaveDoctors}">Сохранить</Button>
+                    </StackPanel>
+                    <DataGrid
+                        Name="DataGridPatients"
+                        AutoGenerateColumns="False"
+                        HeadersVisibility="All"
+                        ItemsSource="{Binding Patients}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=FirstName}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Имя"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=LastName}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Фамилия"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="180"
+                                Binding="{Binding Path=MedicalPolicyNumber}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Aмбулаторная карта"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <materialDesign:DataGridComboBoxColumn
+                                Width="120"
+                                DisplayMemberPath="Name"
+                                Header="Пол"
+                                IsEditable="True"
+                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Genders}"
+                                SelectedValueBinding="{Binding Gender}" />
+                            <materialDesign:DataGridComboBoxColumn
+                                Width="170"
+                                DisplayMemberPath="Name"
+                                Header="Улица"
+                                IsEditable="True"
+                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Streets}"
+                                SelectedValueBinding="{Binding Street}" />
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=Login}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Логин"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn
+                                Width="140"
+                                Binding="{Binding Path=Password}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                ElementStyle="{StaticResource DataGridTextColumn}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="Пароль"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItemWithTitle}">
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource MainMenuTabItemHeader}">
+                        <materialDesign:PackIcon Kind="FileChart" Style="{StaticResource MainMenuTabItemHeaderIcon}" />
+                        <TextBlock Style="{StaticResource MainMenuTabItemHeaderTitle}">Отчеты</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabControl>
+                    <TabItem Header="Общее">
+                        <DockPanel LastChildFill="True">
+                            <Grid Margin="16,10,16,10" DockPanel.Dock="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="132" />
+                                    <ColumnDefinition Width="123" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,4"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">От:</TextBlock>
+                                    <DatePicker
+                                        Width="100"
+                                        Margin="0,0,10,0"
+                                        SelectedDate="{Binding SelectedBeginDateFirstReport}" />
+                                    <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">До:</TextBlock>
+                                    <DatePicker Width="100" SelectedDate="{Binding SelectedEndDateFirstReport}" />
+                                </StackPanel>
+                                <Button Grid.Column="3" Command="{Binding ExportFirstReport}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="0,0,10,0"
+                                            VerticalAlignment="Center"
+                                            Kind="FileWord" />
+                                        <TextBlock>Экспорт</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            <DataGrid
+                                AutoGenerateColumns="False"
+                                HeadersVisibility="All"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding FirstReport}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="140"
+                                        Binding="{Binding Path=Specialization}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Специальность"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Opened}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Открытые записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Expired}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Просроченные записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Canceled}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Отмененные записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Completed}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Закрытые записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=All}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Всего"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="Обращения к специалистам">
+                        <DockPanel LastChildFill="True">
+                            <Grid Margin="16,10,16,10" DockPanel.Dock="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">От:</TextBlock>
+                                    <DatePicker
+                                        Width="100"
+                                        Margin="0,0,10,0"
+                                        SelectedDate="{Binding SelectedBeginDateSecondReport}" />
+                                    <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">До:</TextBlock>
+                                    <DatePicker
+                                        Width="100"
+                                        Margin="0,0,10,0"
+                                        SelectedDate="{Binding SelectedEndDateSecondReport}" />
+                                    <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">Специальность:</TextBlock>
+                                    <ComboBox
+                                        DisplayMemberPath="Name"
+                                        ItemsSource="{Binding Specializations}"
+                                        SelectedItem="{Binding SelectedSpecializationSecondReport}" />
+                                </StackPanel>
+                                <Button Grid.Column="2" Command="{Binding ExportSecondReport}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="0,0,10,0"
+                                            VerticalAlignment="Center"
+                                            Kind="FileWord" />
+                                        <TextBlock>Экспорт</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            <DataGrid
+                                AutoGenerateColumns="False"
+                                HeadersVisibility="All"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding SecondReport}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="140"
+                                        Binding="{Binding Path=Doctor}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Врач"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Opened}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Открытые записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Expired}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Просроченные записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Canceled}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Отмененные записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=Completed}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Закрытые записи"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding Path=All}"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        ElementStyle="{StaticResource DataGridTextColumn}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Text="Всего"
+                                                                TextAlignment="Center"
+                                                                TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

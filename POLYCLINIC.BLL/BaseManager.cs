@@ -10,6 +10,7 @@ namespace POLYCLINIC.BLL
         private BaseContext ctx;
 
         private LiveData<Gender> gender;
+        private LiveData<NonWorkingDay> nonWorkingDay;
         private LiveData<Visit> visit;
         private LiveData<Admin> admin;
         private LiveData<Doctor> doctor;
@@ -23,6 +24,7 @@ namespace POLYCLINIC.BLL
         private LiveData<VoucherForAppointment> voucherForAppointment;
 
         public LiveData<Gender> Gender => gender ?? (gender = new LiveData<Gender>(ctx.Gender));
+        public LiveData<NonWorkingDay> NonWorkingDay => nonWorkingDay ?? (nonWorkingDay = new LiveData<NonWorkingDay>(ctx.NonWorkingDay));
         public LiveData<Visit> Visit => visit ?? (visit = new LiveData<Visit>(ctx.Visit));
         public LiveData<Admin> Admin => admin ?? (admin = new LiveData<Admin>(ctx.Admin));
         public LiveData<Doctor> Doctor => doctor ?? (doctor = new LiveData<Doctor>(ctx.Doctor));
@@ -56,6 +58,7 @@ namespace POLYCLINIC.BLL
             user?.Refresh();
             country?.Refresh();
             voucherForAppointment?.Refresh();
+            nonWorkingDay?.Refresh();
         }
     }
 }
