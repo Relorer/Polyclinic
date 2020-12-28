@@ -21,7 +21,7 @@ namespace POLYCLINIC.Client.ViewModels
 
         public Page CurrentPage => navigation.CurrentPage;
         public Patient Patient { get; }
-        public string DateOfBirthWithoutTime => Patient.DateOfBirth.ToString("MM/dd/yyyy");
+        public string DateOfBirthWithoutTime => Patient.DateOfBirth?.ToString("MM/dd/yyyy") ?? "не известно";
         public string PatientName => $"{Patient.FirstName} {Patient.LastName}";
         public ICollection<VoucherForAppointmentModel> Vouchers => Patient.Vouchers.OrderByDescending(p => p.Date).ToList().ModelList<VoucherForAppointment, VoucherForAppointmentModel>();
 

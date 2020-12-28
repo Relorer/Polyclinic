@@ -17,15 +17,41 @@ namespace POLYCLINIC.Data
                 new Gender(){Name = "Мужской"},
                 new Gender(){Name = "Женский"}
             };
-            var streetList = new List<Street>()
+            var streetList1 = new List<Street>()
             {
                 new Street(){Name = "Улица Генерала Хлебникова"},
                 new Street(){Name = "Улица Кирякиных"},
                 new Street(){Name = "Улица Радищева"}
             };
+            var streetList2 = new List<Street>()
+            {
+                new Street(){Name = "улица 20 лет ВЛКСМ"},
+                new Street(){Name = "30-й микрорайон"},
+                new Street(){Name = "5-й Авдотьинский переулок"}
+            };
+            var streetList3 = new List<Street>()
+            {
+                new Street(){Name = "Авдотьинская улица"},
+                new Street(){Name = "Дальний тупик"},
+                new Street(){Name = "Ваграночная улица"}
+            };
+            var streetList4 = new List<Street>()
+            {
+                new Street(){Name = "улица Ермака"},
+                new Street(){Name = "Ермолинская улица"},
+                new Street(){Name = "Гаражный переулок"}
+            };
+            var streetListAll = new List<Street>();
+            streetListAll.AddRange(streetList1);
+            streetListAll.AddRange(streetList2);
+            streetListAll.AddRange(streetList3);
+            streetListAll.AddRange(streetList4);
             var regionList = new List<Region>()
             {
-                new Region(){Name = "Ленинский район", Streets = streetList}
+                new Region(){Name = "Ленинский район", Streets = streetList1},
+                new Region(){Name = "Фрунзенский район", Streets = streetList2},
+                new Region(){Name = "Октябрьский район", Streets = streetList3},
+                new Region(){Name = "Советский район", Streets = streetList4},
             };
             var patientList = new List<Patient>()
             {
@@ -37,11 +63,26 @@ namespace POLYCLINIC.Data
                     Password = "test_1",
                     DateOfBirth = DateTime.Now.AddYears(-random.Next(18, 25)),
                     Gender = genderList[0],
-                    MedicalPolicyNumber = "Test patient 1",
-                    Street = streetList[0],
+                    MedicalPolicyNumber = "56489416547",
+                    Street = streetListAll[random.Next(streetListAll.Count)],
                     Vouchers = new List<VoucherForAppointment>(),
                     Citizenship = countryList[0],
                     IdentityDocument = "Паспорт гражданина РФ 5789 815462, выдан отделом УФМС России по Ивановской области в Шуйском районе, код подразделения 370-009, дата выдачи 06.06.2011",
+                    PlaceOfBirth = "г.Иваново",
+                },
+                new Patient()
+                {
+                    FirstName = getFirstName(),
+                    LastName = getLastName(),
+                    Login = "test_2",
+                    Password = "test_2",
+                    DateOfBirth = DateTime.Now.AddYears(-random.Next(18, 25)),
+                    Gender = genderList[0],
+                    MedicalPolicyNumber = "54018879931",
+                    Street = streetListAll[random.Next(streetListAll.Count)],
+                    Vouchers = new List<VoucherForAppointment>(),
+                    Citizenship = countryList[0],
+                    IdentityDocument = "Паспорт гражданина РФ ",
                     PlaceOfBirth = "г.Иваново"
                 }
             };
@@ -66,7 +107,7 @@ namespace POLYCLINIC.Data
             var scheduleSlotsList = new List<ScheduleSlot>();
             foreach (var spec in specializationList)
             {
-                for (int i = 0; i < random.Next(2, 7); i++)
+                for (int i = 0; i < random.Next(10, 20); i++)
                 {
                     var doctor = new Doctor()
                     {
@@ -74,13 +115,14 @@ namespace POLYCLINIC.Data
                         LastName = getLastName(),
                         Login = spec.Name + "_" + i,
                         Password = "123",
-                        Region = regionList[0],
+                        Region = regionList[random.Next(regionList.Count)],
                         Specialization = spec,
                         ScheduleSlots = new List<ScheduleSlot>(),
                         Vouchers = new List<VoucherForAppointment>()
                     };
 
-                    foreach(DayOfWeek day in Enum.GetValues(typeof(DayOfWeek))) {
+                    foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+                    {
                         if (day == DayOfWeek.Sunday) continue;
                         if (day == DayOfWeek.Saturday && random.Next(0, 3) != 0) continue;
 
@@ -90,13 +132,13 @@ namespace POLYCLINIC.Data
                             {
                                 Doctor = doctor,
                                 Weekday = day,
-                                StartTime = TimeSpan.FromHours(j),
-                                EndTime = TimeSpan.FromHours(j + 0.5)
+                                StartTime = new DateTime(2000, 1, 1).AddMinutes((int)(j * 60)),
+                                EndTime = new DateTime(2000, 1, 1).AddMinutes((int)(j * 60) + 30),
                             };
                             scheduleSlotsList.Add(slot);
                         }
                     }
-                    
+
 
                     doctorList.Add(doctor);
                 }
@@ -113,7 +155,10 @@ namespace POLYCLINIC.Data
             };
 
             genderList.ForEach(e => context.Gender.Add(e));
-            streetList.ForEach(e => context.Street.Add(e));
+            streetList1.ForEach(e => context.Street.Add(e));
+            streetList2.ForEach(e => context.Street.Add(e));
+            streetList3.ForEach(e => context.Street.Add(e));
+            streetList4.ForEach(e => context.Street.Add(e));
             regionList.ForEach(e => context.Region.Add(e));
             patientList.ForEach(e => context.Patient.Add(e));
             specializationList.ForEach(e => context.Specialization.Add(e));

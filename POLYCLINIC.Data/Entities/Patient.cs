@@ -5,7 +5,7 @@ namespace POLYCLINIC.Data.Entities
 {
     public class Patient : User
     {
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; }
         public string MedicalPolicyNumber { get; set; }
         public string IdentityDocument { get; set; }
